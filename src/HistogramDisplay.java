@@ -9,9 +9,11 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 public class HistogramDisplay extends ApplicationFrame {
+    private final Histogram<String> histogram;
 
-    public HistogramDisplay() {
+    public HistogramDisplay(Histogram<String> histogram) {
         super("HISTOGRAMA");
+        this.histogram = histogram;
         setContentPane(createPanel());
         pack();
     }
@@ -34,9 +36,9 @@ public class HistogramDisplay extends ApplicationFrame {
 
     private DefaultCategoryDataset createDataset() {
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        dataSet.addValue(3, "", "usc.es");
-        dataSet.addValue(5, "", "ulpgc.es");
-        dataSet.addValue(2, "", "gmail.com");
+        for (String key : histogram.keySet()) {
+            dataSet.addValue(histogram.get(key), "", key);
+        }
         return dataSet;
     }
 
